@@ -30,8 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'stores',
     'tailwind',
-    # 'theme',
-    # 'django_browser_reload',
+    'theme',
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -42,7 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # "django_browser_reload.middleware.BrowserReloadMiddleware"
+    "django_browser_reload.middleware.BrowserReloadMiddleware"
 ]
 
 ROOT_URLCONF = 'e_commerce.urls'
@@ -102,14 +102,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'theme', 'static_src'),
-#     os.path.join(BASE_DIR, 'theme', 'static')
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'theme', 'static_src'),
+    os.path.join(BASE_DIR, 'theme', 'static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
