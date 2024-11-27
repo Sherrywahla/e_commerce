@@ -18,9 +18,6 @@ else:
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,*').split(',')
 
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -28,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'stores',
+    'stores',
     'tailwind',
     'theme',
     'django_browser_reload',
@@ -48,9 +45,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'e_commerce.urls'
 TAILWIND_APP_NAME = 'theme'
 
-# LOGIN_URL = '/login/'
+LOGIN_URL = '/login/'
 # LOGIN_REDIRECT_URL = '/dashboard/'
-# LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
