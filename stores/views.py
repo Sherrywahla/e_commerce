@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Cart, CartItem, Category, Order, OrderItem, Product
+from .models import Category, Product
 from .models import Product
 from django.contrib.auth.models import User
 from django.contrib.auth import login
