@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Cart, CartItem, Category, Order, Product
+from .models import Cart, CartItem, Category, Order, OrderItem, Product
 from .models import Product
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -248,6 +248,44 @@ def search(request):
     query = request.GET.get('q', '')
     products = Product.objects.filter(name__icontains=query) if query else []
     return render(request, 'stores/search.html', {'products': products, 'query': query})
+
+def place_order(request):
+    if request.user.is_authenticated:
+        cart = Cart.objects.filter(user=request.user).first()
+    else:
+        session_key = request.session.session_key
+        if not session_key:
+            request.session.create()
+        session_key = request.session.session_key
+        cart = Cart.objects.filter(session_key=session_key).first()
+
+    if not cart or not cart.items.exists():
+        return redirect('view_cart')
+
+    total_cost = sum(item.total_price for item in cart.items.all())
+
+    if total_cost > 0:
+        order = Order.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            total_price=total_cost
+        )
+
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price,
+                image=item.product.image if hasattr(
+                    item.product, 'image') else None
+            )
+
+        cart.items.all().delete()
+
+        return redirect('dashboard')
+
+    return redirect('view_cart')
+
 
 def dashboard(request):
     orders = Order.objects.filter(user=request.user)
