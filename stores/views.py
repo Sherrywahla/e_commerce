@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Category, Product
+from .models import Category,Product
 from .models import Product
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -16,29 +16,6 @@ class CustomLoginView(LoginView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
-        if self.request.user.is_authenticated:
-            session_cart = self.request.session.get('cart', {})
-            if session_cart:
-                cart, created = Cart.objects.get_or_create(
-                    user=self.request.user)
-
-                for product_id, item in session_cart.items():
-                    product = get_object_or_404(Product, id=product_id)
-                    cart_item, created = CartItem.objects.get_or_create(
-                        cart=cart, product=product)
-
-                    if not created:
-                        cart_item.quantity += item['quantity']
-                    else:
-                        cart_item.quantity = item['quantity']
-                    cart_item.save()
-
-                del self.request.session['cart']
-
-                messages.success(
-                    self.request, 'Cart items migrated to your account')
-
         return response
 
 
