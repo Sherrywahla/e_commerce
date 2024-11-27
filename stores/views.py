@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Cart, CartItem, Category, Order, OrderItem, Product
+from .models import Category,Product
 from .models import Product
 from django.contrib.auth.models import User
 from django.contrib.auth import login
@@ -16,29 +16,6 @@ class CustomLoginView(LoginView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
-        if self.request.user.is_authenticated:
-            session_cart = self.request.session.get('cart', {})
-            if session_cart:
-                cart, created = Cart.objects.get_or_create(
-                    user=self.request.user)
-
-                for product_id, item in session_cart.items():
-                    product = get_object_or_404(Product, id=product_id)
-                    cart_item, created = CartItem.objects.get_or_create(
-                        cart=cart, product=product)
-
-                    if not created:
-                        cart_item.quantity += item['quantity']
-                    else:
-                        cart_item.quantity = item['quantity']
-                    cart_item.save()
-
-                del self.request.session['cart']
-
-                messages.success(
-                    self.request, 'Cart items migrated to your account')
-
         return response
 
 
@@ -60,4 +37,48 @@ def home(request):
     products = Product.objects.all()
     return render(request, 'stores/home.html', {'products': products})
 
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    
+    reviews = product.reviews.all()
+    total_reviews = reviews.count()
+    average_rating = 0
+    if total_reviews > 0:
+        average_rating = sum([review.rating for review in reviews]) / total_reviews
+
+    features = [feature.strip()
+                for feature in product.features.split('\n') if feature.strip()]
+
+    total_qty_in_cart = 0
+
+    if request.user.is_authenticated:
+        try:
+            cart = Cart.objects.get(user=request.user)
+            cart_item = CartItem.objects.filter(
+                cart=cart, product=product).first()
+            if cart_item:
+                total_qty_in_cart = cart_item.quantity
+        except Cart.DoesNotExist:
+            pass  
+    else:
+        cart = request.session.get('cart', {})
+        if str(product.id) in cart:
+            total_qty_in_cart = cart[str(product.id)]['quantity']
+
+    return render(request, 'stores/product_detail.html', {
+        'product': product,
+        'features': features,
+        'total_qty_in_cart': total_qty_in_cart,
+        'average_rating': average_rating,
+        'total_reviews': total_reviews,
+        'reviews': reviews,
+        'range_5': range(1, 6)
+    })
+
+
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category)
+    return render(request, 'stores/category_products.html', {'category': category, 'products': products})
 
