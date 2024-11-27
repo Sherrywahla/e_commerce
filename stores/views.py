@@ -55,3 +55,9 @@ def register(request):
         return redirect('home')
     return render(request, 'stores/register.html')
 
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, 'stores/home.html', {'products': products})
+
+
