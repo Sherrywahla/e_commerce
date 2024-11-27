@@ -46,7 +46,7 @@ ROOT_URLCONF = 'e_commerce.urls'
 TAILWIND_APP_NAME = 'theme'
 
 LOGIN_URL = '/login/'
-# LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
