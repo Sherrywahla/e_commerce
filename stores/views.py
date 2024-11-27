@@ -61,3 +61,47 @@ def home(request):
     return render(request, 'stores/home.html', {'products': products})
 
 
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    
+    reviews = product.reviews.all()
+    total_reviews = reviews.count()
+    average_rating = 0
+    if total_reviews > 0:
+        average_rating = sum([review.rating for review in reviews]) / total_reviews
+
+    features = [feature.strip()
+                for feature in product.features.split('\n') if feature.strip()]
+
+    total_qty_in_cart = 0
+
+    if request.user.is_authenticated:
+        try:
+            cart = Cart.objects.get(user=request.user)
+            cart_item = CartItem.objects.filter(
+                cart=cart, product=product).first()
+            if cart_item:
+                total_qty_in_cart = cart_item.quantity
+        except Cart.DoesNotExist:
+            pass  
+    else:
+        cart = request.session.get('cart', {})
+        if str(product.id) in cart:
+            total_qty_in_cart = cart[str(product.id)]['quantity']
+
+    return render(request, 'stores/product_detail.html', {
+        'product': product,
+        'features': features,
+        'total_qty_in_cart': total_qty_in_cart,
+        'average_rating': average_rating,
+        'total_reviews': total_reviews,
+        'reviews': reviews,
+        'range_5': range(1, 6)
+    })
+
+
+def category_products(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category)
+    return render(request, 'stores/category_products.html', {'category': category, 'products': products})
+
