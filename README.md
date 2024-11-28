@@ -38,8 +38,9 @@ This project demonstrates the development of a Django-based e-commerce platform 
 - **Frontend**: Tailwind CSS for styling.
 - **Backend**: Django framework with Model-View-Template (MVT) architecture.
 - **Database**: SQLite for lightweight and easy database management.
-- **DevOps**: Docker for containerization, GitHub Actions for CI/CD, render built-in was used for monitoring.
+- **DevOps**: Docker for containerization, GitHub Actions for CI/CD.
 - **Deployment**: Render for hosting production-ready applications.
+- **Monitoring**: Render's built-in monitoring tools for application performance and uptime tracking.
 - **Version Control**: Git for source code management.
 
 
@@ -78,8 +79,7 @@ This project demonstrates the development of a Django-based e-commerce platform 
    - Hosting on Render for production environments.
 
 5. **Monitor & Feedback**:
-   - Application monitoring with Prometheus and Grafana.
-   - Error tracking integrated with GitHub Issues and Slack.
+   -     Application monitoring using Render's built-in tools for logs, metrics, and alerts.
 
 
 
