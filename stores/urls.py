@@ -20,4 +20,5 @@ urlpatterns = [
     path('order/place/', views.place_order, name='place_order'),
     
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('settings/', views.update_profile, name='update_profile'),
 ]
