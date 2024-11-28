@@ -1,58 +1,77 @@
-/**
- * This is a minimal config.
- *
- * If you need the full config, get it from here:
- * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
- */
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 module.exports = {
-    content: [
-        /**
-         * HTML. Paths to Django template files that will contain Tailwind CSS classes.
-         */
-
-        /*  Templates within theme app (<tailwind_app_name>/templates), e.g. base.html. */
-        '../templates/**/*.html',
-
-        /*
-         * Main templates directory of the project (BASE_DIR/templates).
-         * Adjust the following line to match your project structure.
-         */
-        '../../templates/**/*.html',
-
-        /*
-         * Templates in other django apps (BASE_DIR/<any_app_name>/templates).
-         * Adjust the following line to match your project structure.
-         */
-        '../../**/templates/**/*.html',
-
-        /**
-         * JS: If you use Tailwind CSS in JavaScript, uncomment the following lines and make sure
-         * patterns match your project structure.
-         */
-        /* JS 1: Ignore any JavaScript in node_modules folder. */
-        // '!../../**/node_modules',
-        /* JS 2: Process all JavaScript files in the project. */
-        // '../../**/*.js',
-
-        /**
-         * Python: If you use Tailwind CSS classes in Python, uncomment the following line
-         * and make sure the pattern below matches your project structure.
-         */
-        // '../../**/*.py'
-    ],
-    theme: {
-        extend: {},
-    },
-    plugins: [
-        /**
-         * '@tailwindcss/forms' is the forms plugin that provides a minimal styling
-         * for forms. If you don't like it or have own styling for forms,
-         * comment the line below to disable '@tailwindcss/forms'.
-         */
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/line-clamp'),
-        require('@tailwindcss/aspect-ratio'),
-    ],
-}
+  darkMode: 'class',
+  content: [
+    '../templates/**/*.html',
+    '../../templates/**/*.html',
+    '../../**/templates/**/*.html'
+  ],
+  theme: {
+    extend: {
+    //   screens: {
+    //     sm: '480px',
+    //     md: '768px',
+    //     lg: '976px',
+    //     xl: '1440px'
+    //   },
+      colors: {
+        secondary: {
+          DEFAULT: '#EF5528',
+          100: '#fac7b8',
+          200: '#f6a188',
+          300: '#f37c59',
+          400: '#ef5629',
+          500: '#d63d10',
+          600: '#a62f0c',
+          700: '#772209',
+          800: '#471405',
+          900: '#180702'
+        },
+        primary: {
+          DEFAULT: '#0094DA',
+          100: '#b3e6ff',
+          200: '#b3e5ff',
+          300: '#80d6ff',
+          400: '#4dc6ff',
+          500: '#1ab5ff',
+          600: '#009ce6',
+          700: '#0079b3',
+          800: '#005780',
+          900: '#00344d'
+        },
+        gray: {
+          DEFAULT: '#d2d6dc',
+          100: '#f4f5f7',
+          200: '#e4e7eb',
+          300: '#d2d6dc',
+          400: '#9fa6b2',
+          500: '#6c798f',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#252f3f',
+          900: '#161c2d'
+        },
+        'gray-light': '#d3dce6'
+      },
+      fontFamily: {
+        ubuntu: ['Ubuntu', ...defaultTheme.fontFamily.sans]
+      },
+      extend: {
+        spacing: {
+          128: '32rem',
+          144: '36rem'
+        },
+        borderRadius: {
+          '4xl': '2rem'
+        }
+      }
+    }
+  },
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio')
+  ]
+};
