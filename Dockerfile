@@ -22,10 +22,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY theme/static_src/package.json ./theme/static_src/
 
-WORKDIR /app/frontend/static_src
+WORKDIR /app/theme/static_src
 RUN npm install -g yarn && yarn install
 
-RUN npm install -g rimraf
 
 WORKDIR /app
 COPY . .
