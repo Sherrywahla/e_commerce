@@ -112,3 +112,15 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.name} - Qty: {self.quantity} - Price: ${self.price}"
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    job_title = models.CharField(max_length=100, blank=True, null=True)
+    social_links = models.JSONField(default=dict, blank=True, null=True)  # To store social media links
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"

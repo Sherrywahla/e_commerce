@@ -1,12 +1,14 @@
 from django.contrib import messages
+from django.dispatch import receiver
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Cart, CartItem, Category, Order, OrderItem, Product
+from .models import Cart, CartItem, Category, Order, OrderItem, Product, UserProfile
 from .models import Product
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
-
+from django.db.models.signals import post_save
+from django.core.files.storage import default_storage
 
 class CustomLoginView(LoginView):
     def dispatch(self, request, *args, **kwargs):
@@ -54,6 +56,63 @@ def register(request):
         login(request, user)
         return redirect('home')
     return render(request, 'stores/register.html')
+
+@receiver(post_save, sender=User)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+        
+    instance.profile.save()
+    
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
+
+def update_profile(request):
+    if request.user.is_authenticated:
+        profile = request.user.profile
+        if request.method == 'POST':
+            first_name = request.POST.get('first_name', '').strip()
+            last_name = request.POST.get('last_name', '').strip()
+            email = request.POST.get('email', '').strip()
+            description = request.POST.get('description', '').strip()
+            job_title = request.POST.get('job_title', '').strip()
+            social_links = {
+                'linkedin': request.POST.get('linkedin', '').strip(),
+                'twitter': request.POST.get('twitter', '').strip(),
+                'github': request.POST.get('github', '').strip(),
+            }
+            
+            profile_image = request.FILES.get('profile_image')
+            if profile_image:
+                if profile.profile_image:
+                    default_storage.delete(profile.profile_image.path)  # Delete old image
+                profile.profile_image = profile_image
+
+            user = request.user
+            if first_name:
+                user.first_name = first_name
+            if last_name:
+                user.last_name = last_name
+            if email:
+                if User.objects.filter(email=email).exclude(pk=user.pk).exists():
+                    messages.error(request, 'Email is already in use.')
+                    return redirect('update_profile')
+                user.email = email
+
+            user.save()
+            profile.description = description
+            profile.job_title = job_title
+            profile.social_links = social_links
+            profile.save()
+
+            messages.success(request, 'Your profile has been updated successfully!')
+            return redirect('dashboard')
+
+        return render(request, 'stores/settings.html', {'profile': profile})
+    else:
+        return redirect('login')
 
 
 def home(request):
