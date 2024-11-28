@@ -8,13 +8,14 @@
 5. [DevOps Workflow](#devops-workflow)  
    - [Pipeline Stages](#pipeline-stages)  
 6. [Installation & Usage](#installation--usage)  
+   - [Setting Up a Virtual Environment](#setting-up-a-virtual-environment)  
    - [Local Installation](#local-installation)  
    - [Docker Installation](#docker-installation)  
 7. [Dockerfile Example](#dockerfile-example)  
 8. [GitHub Actions Workflow Example](#github-actions-workflow-example)  
 9. [Future Works](#future-works)  
 10. [Reflections](#reflections)  
-11. [References](#references) 
+11. [References](#references)
 
 ## Overview
 This project demonstrates the development of a Django-based e-commerce platform using DevOps principles to address the challenges of monolithic architectures. The project integrates modern development practices such as modular architecture, automation, CI/CD pipelines, and advanced deployment workflows.
@@ -88,10 +89,36 @@ This project demonstrates the development of a Django-based e-commerce platform 
 - Docker
 - Django Framework
 
+### Setting Up a Virtual Environment
+1. Install `venv` if not already installed:
+   ```bash
+   python3 -m pip install --user virtualenv
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python3 -m virtualenv venv
+   ```
+
+3. Activate the virtual environment:
+   - **Linux/Mac**:
+     ```bash
+     source venv/bin/activate
+     ```
+   - **Windows**:
+     ```bash
+     .\venv\Scripts\activate
+     ```
+
+4. Deactivate the environment (optional):
+   ```bash
+   deactivate
+   ```
+
 ### Local Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Sherrywahla/e_commerce.git
    cd e_commerce-master
    ```
 
@@ -248,4 +275,3 @@ jobs:
 
 ## References
 All references follow the [University of Suffolk Harvard Style](https://libguides.uos.ac.uk/academic/referencing/Harvard).
-
