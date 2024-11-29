@@ -7,4 +7,3 @@ staticfiles
 .envs
 theme/static_src/package-lock.json
 migrations
-theme/static/css
