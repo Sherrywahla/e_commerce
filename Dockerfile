@@ -33,7 +33,7 @@ RUN python manage.py makemigrations
 RUN python manage.py makemigrations stores
 RUN python manage.py migrate
 
-RUN python manage.py seed_db_api
+RUN python manage.py seed_products
 
 
 RUN python manage.py tailwind build

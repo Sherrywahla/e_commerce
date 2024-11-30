@@ -30,7 +30,8 @@ class Product(models.Model):
     features = models.TextField(blank=True, null=True)
     reviews = models.ManyToManyField(
         'Review', blank=True, related_name='products')
-
+    images = models.JSONField()
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)

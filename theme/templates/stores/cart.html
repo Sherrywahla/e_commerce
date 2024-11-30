@@ -29,10 +29,11 @@
                     <div class="flow-root">
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
                         {% for item in cart_items %}
+                        {{ item.product.image.url }}
                         <li class="flex py-6">
                             <div class="size-24 shrink-0 overflow-hidden rounded-md border border-gray-200">
                                 <a href="{% url 'product_detail' item.product.slug %}">
-                                    <img src="{{ item.product.image }}" alt="{{ item.product.name }}" class="size-full object-cover object-center">
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="size-full object-cover object-center">
                                 </a>
                             </div>
     

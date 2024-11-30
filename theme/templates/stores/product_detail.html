@@ -5,13 +5,14 @@
       <div class="flex flex-wrap -mx-4">
         <!-- Product Images -->
         <div class="w-full md:w-1/2 px-4 mb-8">
-          <img src="{{ product.image }}" alt="{{ product.name }}"
+          <img src="{{ product.image.url }}" alt="{{ product.name }}"
                       class="w-full h-auto rounded-lg shadow-md mb-4" id="mainImage">
           <div class="flex gap-4 py-4 justify-center overflow-x-auto">
-            <img src="{{ product.image }}" alt="{{ product.name }}"
+            {% for images in product.images %}
+              <img src="/products/{{ images }}" alt="{{ product.name }}"
                           class="size-16 sm:size-20 object-cover rounded-md cursor-pointer opacity-60 hover:opacity-100 transition duration-300"
                           onclick="changeImage(this.src)">
-            {% comment %}more images {% endcomment %}
+            {% endfor%}
           </div>
         </div>
 
