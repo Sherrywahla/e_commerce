@@ -48,7 +48,7 @@ class Command(BaseCommand):
                         category=category,
                         image=product_data["image"],
                         stock=product_data["stock"],
-                        features=product_data["specifications"].split(','),
+                        features=product_data["specifications"],
                         images=product_data["images"],
                     )
 
