@@ -1,124 +1,55 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block title %} Sherry Retail | Home {% endblock %}
+<style>
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hidden {
+    display: none;
+  }
+
+    /* Set smooth scrolling for the modal content */
+  #product-modal .overflow-y-auto {
+    scroll-behavior: smooth;
+  }
+
+  /* Add custom scrollbar styles (optional) */
+  #product-modal .overflow-y-auto::-webkit-scrollbar {
+    width: 8px;
+  }
+  #product-modal .overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: #9ca3af; /* Gray */
+    border-radius: 8px;
+  }
+  #product-modal .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background-color: #6b7280; /* Darker Gray */
+  }
+</style>
 {% block content %}
   <div>
     <div>
-      <div id="default-carousel" class="relative w-full" data-carousel="slide">
-        <!-- Carousel wrapper -->
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-          <!-- Item 1 -->
-          <div class="active duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="{% static 'hero/item.jpg' %}"
-              style="max-height: 80%"
-              class="absolute block min-w-fit -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
-          </div>
-          <!-- Item 2 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="{% static 'hero/item2.jpg' %}"
-              style="max-height: 80%"
-              class="absolute block min-w-fit -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
-          </div>
-          <!-- Item 3 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="{% static 'hero/item3.jpg' %}"
-              style="max-height: 80%"
-              class="absolute block min-w-fit -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
-          </div>
-          <!-- Item 4 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="{% static 'hero/item4.jpg' %}"
-              style="max-height: 80%"
-              class="absolute block min-w-fit -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
-          </div>
-          <!-- Item 5 -->
-          <div class="hidden duration-700 ease-in-out" data-carousel-item>
-            <img
-              src="{% static 'hero/item5.jpg' %}"
-              style="max-height: 80%"
-              class="absolute block min-w-fit -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt="..."
-            />
-          </div>
+      <section class="px-3 py-5 bg-white-100 lg:py-10">
+        <div class="grid lg:grid-cols-2 items-center justify-items-center gap-5">
+            <div class="order-2 lg:order-1 flex flex-col justify-center items-center">
+                <p class="text-4xl font-bold md:text-7xl text-orange-600">25% OFF</p>
+                <p class="text-4xl font-bold md:text-7xl">SUMMER SALE</p>
+                <p class="mt-2 text-sm md:text-lg">For limited time only!</p>
+                <a href="{% url 'login' %}" class="text-lg md:text-2xl bg-black text-white py-2 px-5 mt-10 hover:bg-zinc-800">Shop Now</a>
+            </div>
+            <div class="order-1 lg:order-2">
+                <img class="h-80 w-80 object-cover lg:w-[500px] lg:h-[500px]" src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80" alt="">
+            </div>
         </div>
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-          <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-        </div>
-        <!-- Slider controls -->
-        <button
-          type="button"
-          class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          data-carousel-prev
-        >
-          <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
-          >
-            <svg
-              class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 1 1 5l4 4"
-              />
-            </svg>
-            <span class="sr-only">Previous</span>
-          </span>
-        </button>
-        <button
-          type="button"
-          class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-          data-carousel-next
-        >
-          <span
-            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none"
-          >
-            <svg
-              class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
-            <span class="sr-only">Next</span>
-          </span>
-        </button>
-      </div>
-      <div class="mx-auto max-w-2xl px-4 py-6 sm:px-3 sm:py-3 lg:max-w-7xl lg:px-8">
-        <h2 class="text-2xl font-bold tracking-tight text-gray-900">
+      </section>
+      <div class="mx-auto max-w-2xl px-4 py-6 sm:px-3 sm:py-3 lg:max-w-7xl lg:px-8" id="shop">
+        {% comment %} <h2 class="text-2xl font-bold tracking-tight text-gray-900">
           Sherry Products
-        </h2>
+        </h2> {% endcomment %}
 
         <div
           class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
@@ -132,12 +63,12 @@
               class="open-modal"
               data-id="{{ product.id }}"
               data-title="{{ product.title }}"
-              data-image="{{ product.image }}"
+              data-image="{{ product.image.url }}"
               data-description="{{ product.description }}"
               data-price="{{ product.price }}"
             >
               <img
-                src="{{ product.image }}"
+                src="{{ product.image.url }}"
                 alt="Product"
                 class="h-80 w-72 object-cover rounded-t-xl"
               />
@@ -230,7 +161,7 @@
 
           <!-- Modal Content -->
           <div
-            class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 p-6 sm:grid-cols-12 lg:gap-x-8"
+            class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 p-6 sm:grid-cols-12 lg:gap-x-8 overflow-y-auto max-h-[80vh]"
           >
             <img
               id="modal-image"
@@ -245,33 +176,24 @@
               ></h2>
 
               <section aria-labelledby="information-heading" class="mt-2">
-                <h3 id="information-heading" class="sr-only">
-                  Product information
-                </h3>
+                <h3 id="information-heading" class="sr-only">Product information</h3>
                 <p id="modal-price" class="text-2xl text-gray-900"></p>
               </section>
 
               <section aria-labelledby="description-heading" class="mt-6">
                 <h3 id="description-heading" class="sr-only">Description</h3>
-                <p id="modal-description" class="text-sm text-gray-500"></p>
-                <p id="modal-id" class="text-sm text-gray-500"></p>
+                <p id="modal-description" class="text-sm text-gray-500">
+                  <span id="truncated-text"></span>
+                  <span id="full-text" class="hidden"></span>
+                  <button id="toggle-description" class="text-blue-500 underline">Read More</button>
+                </p>
               </section>
+
               <a
                 href="#"
                 id="modal-add-to-cart"
                 class="mt-6 flex w-full items-center justify-center rounded-md bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                <svg
-                  class="w-3.5 h-3.5 me-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 18 21"
-                >
-                  <path
-                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"
-                  />
-                </svg>
                 Add to cart
               </a>
             </div>
@@ -292,12 +214,36 @@
         const description = button.getAttribute("data-description");
         const price = button.getAttribute("data-price");
 
+        const truncatedText = description.length > 100 ? description.substring(0, 100) + "..." : description;
+        const fullText = description;
+
         document.getElementById("modal-title").textContent = title;
         document.getElementById("modal-image").src = image;
         document.getElementById("modal-image").alt = title;
-        document.getElementById("modal-description").textContent = description;
+        document.getElementById("truncated-text").textContent = truncatedText;
+        document.getElementById("full-text").textContent = fullText;
         document.getElementById("modal-price").textContent = `$${price}`;
         document.getElementById("modal-add-to-cart").href = `/cart/add/${id}/`;
+
+        const toggleButton = document.getElementById("toggle-description");
+        const truncatedSpan = document.getElementById("truncated-text");
+        const fullSpan = document.getElementById("full-text");
+
+        truncatedSpan.classList.remove("hidden");
+        fullSpan.classList.add("hidden");
+        toggleButton.textContent = "Read More";
+
+        toggleButton.onclick = () => {
+          if (fullSpan.classList.contains("hidden")) {
+            truncatedSpan.classList.add("hidden");
+            fullSpan.classList.remove("hidden");
+            toggleButton.textContent = "Show Less";
+          } else {
+            truncatedSpan.classList.remove("hidden");
+            fullSpan.classList.add("hidden");
+            toggleButton.textContent = "Read More";
+          }
+        };
 
         document.getElementById("product-modal").classList.remove("hidden");
       });
@@ -306,62 +252,7 @@
       button.addEventListener("click", () => {
         document.getElementById("product-modal").classList.add("hidden");
       });
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-      const carousel = document.querySelector("[data-carousel='slide']");
-      const items = carousel.querySelectorAll("[data-carousel-item]");
-      const indicators = carousel.querySelectorAll("[data-carousel-slide-to]");
-      let currentIndex = 0;
-      const intervalTime = 5000;
-      let autoplayInterval;
-
-      function showSlide(index) {
-        items.forEach((item) => item.classList.add("hidden"));
-        indicators.forEach((indicator) =>
-          indicator.setAttribute("aria-current", "false")
-        );
-
-        items[index].classList.remove("hidden");
-        items[index].classList.add("active");
-        indicators[index].setAttribute("aria-current", "true");
-      }
-
-      function nextSlide() {
-        currentIndex = (currentIndex + 1) % items.length;
-        showSlide(currentIndex);
-      }
-
-      function prevSlide() {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        showSlide(currentIndex);
-      }
-
-      function startAutoplay() {
-        autoplayInterval = setInterval(nextSlide, intervalTime);
-      }
-
-      function stopAutoplay() {
-        clearInterval(autoplayInterval);
-      }
-
-      const nextButton = carousel.querySelector("[data-carousel-next]");
-      const prevButton = carousel.querySelector("[data-carousel-prev]");
-      nextButton.addEventListener("click", () => {
-        stopAutoplay();
-        nextSlide();
-        startAutoplay();
-      });
-      prevButton.addEventListener("click", () => {
-        stopAutoplay();
-        prevSlide();
-        startAutoplay();
-      });
-
-      startAutoplay();
-
-      carousel.addEventListener("mouseenter", stopAutoplay);
-      carousel.addEventListener("mouseleave", startAutoplay);
-    });
+    });    
   </script>
 
 {% endblock %}
